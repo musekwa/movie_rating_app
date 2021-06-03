@@ -1,5 +1,6 @@
 const MovieSchema = require('../models/Movie')
 const Rating = require('../models/Rating')
+const passport = require('passport')
 
 module.exports.controller = (app) => {
   // fetch all movies
@@ -19,6 +20,7 @@ module.exports.controller = (app) => {
       res.send(movie);
     })
   })
+
 
   // rate a movie
   app.post('/movies/rate/:id', (req, res)=>{
