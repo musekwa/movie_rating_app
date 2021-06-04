@@ -1,20 +1,19 @@
-const MovieSchema = require('../models/Movie')
+const Movie = require('../models/Movie')
 const Rating = require('../models/Rating')
-const passport = require('passport')
 
 module.exports.controller = (app) => {
   // fetch all movies
   app.get('/movies', (req, res)=>{
-    MovieSchema.find({}, 'name description release_year genre',
+    Movie.find({}, 'name description release_year genre',
       (error, movies)=>{
         if (error) { console.log(error) }
-        res.send({ movies, })
+        res.send({ movies: movies })
       })
   })
 
   // fetch a single movie
-  app.get('/api/movies/:id', (req, res)=>{
-    MovieSchema.findById(req.params.id, 'name description release_year genre',
+  app.get('/movies/:id', (req, res)=>{
+    Movie.findById(req.params.id, 'name description release_year genre',
     (error, movie)=>{
       if (error) { console.log(error) }
       res.send(movie);
@@ -42,14 +41,14 @@ module.exports.controller = (app) => {
 
   // add a new movie
   app.post('/movies', (req, res) =>{
-    const newMovie = new MovieSchema({
+    const movie = new Movie({
       name: req.body.name,
       description: req.body.description,
       release_year: req.body.release_year,
       genre: req.body.genre,
     })
 
-    newMovie.save((error, movie)=>{
+    movie.save((error, movie)=>{
       if (error) { console.log(error)}
       res.send(movie)
     })

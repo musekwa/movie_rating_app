@@ -32,18 +32,18 @@ export default ({
           email: this.email,
           password: this.password,
         },
-        url: 'http://localhost:8081/users/login',
+        url: '/users/login',
         headers: {
           'Content-Type': 'application/json',
         },
       }).then((response)=>{
-      //  window.localStorage.setItem('auth', response.data.token)
+        window.localStorage.setItem('jwtToken', response.data.token)
         this.$swal('Great!', 'You are ready to start!', 'success')
+        bus.$emit('refreshUser')
         this.$router.push({ name: 'Home'})
       }).catch((error)=>{
         const message = error.response.data.message
         this.$swal('Oh oo!', `${message}`, 'error')
-        this.$router.push({ name: 'Login' })
       })
     },
     clear() {

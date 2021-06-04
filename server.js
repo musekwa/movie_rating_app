@@ -4,6 +4,8 @@ const mongoose = require('mongoose')
 const cors = require('cors')
 const morgan = require('morgan')
 const fs = require('fs')
+const serveStatic = require('serve-static')
+const history = require('connect-history-api-fallback')
 const jwt = require('jsonwebtoken')
 const passport = require('passport')
 const passportJWT = require('passport-jwt')
@@ -38,6 +40,8 @@ fs.readdirSync('controllers').forEach(function(file){
     route.controller(app)
   }
 })
+app.use(history())
+app.use(serveStatic(__dirname + "/dist"))
 
 router.get('/', function(req, res){
   res.json({ message: 'API initialized!---'})

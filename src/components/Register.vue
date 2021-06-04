@@ -1,7 +1,7 @@
 
 <template>
   <v-form v-model="valid" ref="form" lazy-validation>
-    <v-text-field label="Name" v-model="name" required></v-text-field>
+    <v-text-field label="Name" v-model="fullname" required></v-text-field>
     <v-text-field label="Email" v-model="email" :rules="emailRules" required></v-text-field>
     <v-text-field label="Password" v-model="password" required></v-text-field>
     <v-text-field name="input-7-1" label="Confirm Password" v-model="confirm_password"></v-text-field>
@@ -15,13 +15,19 @@ import axios from 'axios'
 export default ({
   data: ()=>({
     valid: true,
-    name: '',
+    fullname: '',
     email: '',
     password: '',
     confirm_password: '',
+    fullnameRules: [
+      (v) => !!v || 'Fullname is required'
+    ],
     emailRules: [
       v => !!v || 'E-mail is required',
       v => /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(v) || 'E-mail must be valid'
+    ],
+    passwordRules: [
+      (v) => !!v || 'Password is required'
     ],
   }),
   methods: {
@@ -30,23 +36,22 @@ export default ({
         return axios({
           method: 'post',
           data: {
-            name: this.name,
+            fullname: this.fullname,
             email: this.email,
             password: this.password,
           },
-          url: 'http://localhost:8081/users/register',
+          url: '/users/register',
           headers: {
             'Content-Type': 'application/json',
           }
-        }).then(()=>{
+        }).then((response)=>{
           this.$swal('Great!', 'You have been successfully registered!', 'success')
-          this.$router.push({ name: 'Login' })
+          this.$router.push({ name: 'Home' })
         }).catch((error)=>{
           const message = error.response.data.message
           this.$swal('Oh oo!', `${message}`, 'error')
         })
       }
-      return true
     },
     clear() {
       this.$refs.form.reset()

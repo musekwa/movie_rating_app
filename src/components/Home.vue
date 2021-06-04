@@ -39,20 +39,13 @@ export default {
      // const token = window.localStorage.getItem('auth')
       return axios({
         method: 'get',
-        url: 'http://localhost:8081/movies',
-        headers: {
-          'Content-Type': 'application/json',
-        }
+        url: '/movies',
       })
       .then((response)=>{
         this.movies = response.data.movies;
        // this.current_user = response.data.current_user
       })
       .catch(()=>{});
-    },
-
-    reply() {
-      this.message = "I'm doing great. Thank you!"
     },
   },
 }
