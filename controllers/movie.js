@@ -12,10 +12,10 @@ module.exports.controller = (app) => {
   })
 
   // fetch a single movie
-  app.get('/movies/:id', (req, res)=>{
+  app.get('/api/movies/:id', (req, res)=>{
     Movie.findById(req.params.id, 'name description release_year genre',
     (error, movie)=>{
-      if (error) { console.log(error) }
+      if (error) { console.error(error) }
       res.send(movie);
     })
   })
@@ -23,13 +23,13 @@ module.exports.controller = (app) => {
 
   // rate a movie
   app.post('/movies/rate/:id', (req, res)=>{
-    const rating = new Rating({
+    const newRating = new Rating({
       movie_id: req.params.id,
       user_id: req.body.user_id,
       rate: req.body.rate,
     })
 
-    rating.save(function(error, rating){
+    newRating.save(function(error, rating){
       if (error) { console.log(error) }
       res.send({
         movie_id: rating.movie_id,
@@ -41,14 +41,14 @@ module.exports.controller = (app) => {
 
   // add a new movie
   app.post('/movies', (req, res) =>{
-    const movie = new Movie({
+    const newMovie = new Movie({
       name: req.body.name,
       description: req.body.description,
       release_year: req.body.release_year,
       genre: req.body.genre,
     })
 
-    movie.save((error, movie)=>{
+    newMovie.save((error, movie)=>{
       if (error) { console.log(error)}
       res.send(movie)
     })

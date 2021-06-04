@@ -39,10 +39,10 @@ module.exports.controller = (app) =>{
     const password = req.body.password
     const role = req.body.role || 'user'
     const newUser = new User({
-      email: email,
       fullname: fullname,
+      email: email,
+      password: password,
       role: role,
-      password: password
     })
    // console.log('new user:', newUser)
     User.createUser(newUser, (error, user)=>{
