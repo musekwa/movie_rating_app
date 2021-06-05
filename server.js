@@ -11,6 +11,7 @@ const history = require('connect-history-api-fallback')
 const jwt = require('jsonwebtoken')
 const passport = require('passport')
 const passportJWT = require('passport-jwt')
+const Config = require('./config/Config')
 const ExtractJwt = passportJWT.ExtractJwt
 const JwtStrategy = passportJWT.Strategy
 const jwtOptions = {
@@ -39,7 +40,7 @@ const mongoOptions = {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 }
-mongoose.connect('mongodb://localhost/movie_rating_app', mongoOptions)
+mongoose.connect(Config.DB, mongoOptions)
   .catch(err => {
     console.error('App starting error:', err.stack)
     process.exit(1)

@@ -19,6 +19,7 @@ module.exports.controller = (app) =>{
     passwordField: 'password',
   },
   function (email, password, done){
+    console.log(`email: ${email} and password: ${password}`)
     User.getUserByEmail(email, function(err, user){
       if (err) { return done(err) }
       if (!user) { return done(null, false) }
