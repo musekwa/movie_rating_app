@@ -4,4 +4,4 @@ node_js:
   - "14.4.0"
 before_script:
   - npm install
-script: npm run unit
+script: npm run build

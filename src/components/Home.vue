@@ -3,16 +3,26 @@
     <v-flex xs4 v-for="movie in movies" :key="movie._id">
       <v-card>
         <v-card-title primary-title>
-          <div>
-            <v-btn text v-bind:to="`/movies/${movie._id}`">
-              {{ movie.name }}
-            </v-btn>
-            <span class="grey--text">{{ movie.release_year }} . {{ movie.genre }}</span>
-          </div>
+          <v-btn
+            class="text-blue text-center"
+            text v-bind:to="`/movies/${movie._id}`">
+            {{ movie.name }}
+          </v-btn>
+          <v-spacer></v-spacer>
+          <p class="grey--text text-center">{{ movie.release_year }} . {{ movie.genre }}</p>
         </v-card-title>
-        <v-card-text class="text-justify">{{ movie.description }}</v-card-text>
+        <v-card-text
+          class="text-justify">
+          {{ movie.description.length > 200 ? movie.description.slice(0, 200)+ '...' : movie.description   }}
+          <v-btn text v-bind:to="`/movies/${movie._id}`" >Read More</v-btn>
+        </v-card-text>
+
         <div class="text-center">
-          <v-btn color="primary">Rate this movie</v-btn>
+          <v-btn
+            text v-bind:to="`/movies/${movie._id}`"
+            color="primary">
+              Rate this movie
+          </v-btn>
           <v-spacer></v-spacer>
         </div>
         <v-spacer></v-spacer>

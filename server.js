@@ -69,7 +69,7 @@ function isLoggedIn (req, res, next) {
   if (req.isAuthenticated())
     return next()
   res.redirect('/')
-  console.log('error! auth failed')
+  //console.log('error! auth failed')
 }
 
 router.get('/api/logout', function (req, res) {
@@ -83,6 +83,7 @@ router.get('/', function(req, res) {
 
 const port = process.env.API_PORT || 8081;
 app.use('/', router);
+
 var server = app.listen(port, function(){
   console.log(`API running on port ${port}`);
 })
